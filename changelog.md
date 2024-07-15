@@ -1,2 +1,2 @@
-### Version 0.11.4
-* Update support for NeoForge **21.0.75-beta** and above (Which is now the minimum required version)
+### Version 0.11.5
+* Increase minimum Architectury version to 13.0.4
