@@ -41,6 +41,6 @@
     "java": ">=21",
     "fabric-api": "*",
     "cloth-config": ">=15",
-    "architectury": ">=13.0.2"
+    "architectury": ">=13.0.4"
   }
 }
