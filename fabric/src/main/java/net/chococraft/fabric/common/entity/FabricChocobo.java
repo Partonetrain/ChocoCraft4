@@ -19,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class FabricChocobo extends AbstractChocobo implements ContainerListener {
+	private ItemStack saddleItemStack = ItemStack.EMPTY;
 	protected SimpleContainer inventory;
 
 	public FabricChocobo(EntityType<? extends AbstractChocobo> type, Level world) {
@@ -84,19 +85,7 @@ public class FabricChocobo extends AbstractChocobo implements ContainerListener 
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
 
-		ListTag listTag = new ListTag();
-
-		for (int i = 0; i < this.inventory.getContainerSize(); ++i) {
-			ItemStack itemStack = this.inventory.getItem(i);
-			if (!itemStack.isEmpty()) {
-				CompoundTag compoundTag2 = new CompoundTag();
-				compoundTag2.putByte("Slot", (byte) i);
-				itemStack.save(compoundTag2);
-				listTag.add(compoundTag2);
-			}
-		}
-
-		compound.put("Items", listTag);
+		compound.put("Items", this.inventory.createTag(this.registryAccess()));
 	}
 
 	@Override
@@ -104,14 +93,9 @@ public class FabricChocobo extends AbstractChocobo implements ContainerListener 
 		super.readAdditionalSaveData(compound);
 
 		ListTag listTag = compound.getList("Items", 10);
+		this.inventory.fromTag(listTag, this.registryAccess());
 
-		for (int i = 0; i < listTag.size(); ++i) {
-			CompoundTag compoundTag2 = listTag.getCompound(i);
-			int j = compoundTag2.getByte("Slot") & 255;
-			if (j < this.inventory.getContainerSize()) {
-				this.inventory.setItem(j, ItemStack.of(compoundTag2));
-			}
-		}
+		setSaddleType(this.inventory.getItem(0));
 	}
 
 	@Override
@@ -127,18 +111,22 @@ public class FabricChocobo extends AbstractChocobo implements ContainerListener 
 	public void openCustomInventoryScreen(Player player) {
 		if (!this.level().isClientSide && (!this.isVehicle() || this.hasPassenger(player)) && this.isTame()) {
 			ServerPlayer serverPlayer = (ServerPlayer) player;
-			if ((!this.isVehicle())) {
-				if (serverPlayer.containerMenu != serverPlayer.inventoryMenu) {
-					serverPlayer.closeContainer();
-				}
 
-				serverPlayer.nextContainerCounter();
-
-				MenuRegistry.openExtendedMenu(serverPlayer, new SimpleMenuProvider((ix, playerInventory, playerEntityx) ->
-						new FabricSaddleBagMenu(ix, playerInventory, this), this.getDisplayName()), buf -> {
-					buf.writeUUID(getUUID());
-				});
+			if (serverPlayer.containerMenu != serverPlayer.inventoryMenu) {
+				serverPlayer.closeContainer();
 			}
+
+			serverPlayer.nextContainerCounter();
+
+			MenuRegistry.openExtendedMenu(serverPlayer, new SimpleMenuProvider((ix, playerInventory, playerEntityx) ->
+					new FabricSaddleBagMenu(ix, playerInventory, this), this.getDisplayName()), buf -> {
+				buf.writeUUID(getUUID());
+			});
+
+			serverPlayer.nextContainerCounter();
+
+			MenuRegistry.openExtendedMenu(serverPlayer, new SimpleMenuProvider((ix, playerInventory, playerEntityx) ->
+					new FabricSaddleBagMenu(ix, playerInventory, this), this.getDisplayName()), buf -> buf.writeUUID(getUUID()));
 		}
 	}
 

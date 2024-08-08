@@ -48,6 +48,7 @@ public class ChococraftForge {
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
 			eventBus.addListener(ForgeClientHandler::registerEntityRenders);
+			eventBus.addListener(ForgeClientHandler::registerMenuScreen);
 			eventBus.addListener(ForgeClientHandler::registerLayerDefinitions);
 
 			ClientLifecycleEvent.CLIENT_SETUP.register(e -> {
