@@ -1,8 +1,6 @@
 package net.chococraft.neoforge;
 
-import dev.architectury.event.events.client.ClientLifecycleEvent;
 import net.chococraft.Chococraft;
-import net.chococraft.ChococraftClient;
 import net.chococraft.common.entity.AbstractChocobo;
 import net.chococraft.neoforge.client.NeoForgeClientHandler;
 import net.chococraft.neoforge.common.config.BreedingConfig;
@@ -44,11 +42,8 @@ public class ChococraftNeoForge {
 
 		if (dist.isClient()) {
 			eventBus.addListener(NeoForgeClientHandler::registerEntityRenders);
+			eventBus.addListener(NeoForgeClientHandler::registerMenuScreen);
 			eventBus.addListener(NeoForgeClientHandler::registerLayerDefinitions);
-
-			ClientLifecycleEvent.CLIENT_SETUP.register(e -> {
-				ChococraftClient.init();
-			});
 		}
 	}
 
