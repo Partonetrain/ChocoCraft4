@@ -58,6 +58,7 @@ public class ChococraftForge {
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
+		ModRegistry.registerCompostables();
 		BreedingConfig.initializeConfig();
 	}
 
