@@ -20,7 +20,9 @@ public class ChocoboHealInPenGoal extends Goal {
 
 	@Override
 	public boolean canUse() {
-		if (chocobo.level().getGameTime() % 40 == 0 && chocobo.getHealth() != chocobo.getMaxHealth()) {
+		boolean cooldown = chocobo.level().getGameTime() % 40 == 0;
+		boolean canHeal = chocobo.getHealth() != chocobo.getMaxHealth();
+		if (cooldown && canHeal) {
 			return chocobo.level().getBlockState(chocobo.blockPosition()).is(ModRegistry.STRAW.get());
 		}
 
