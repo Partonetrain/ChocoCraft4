@@ -6,7 +6,6 @@ import net.chococraft.client.models.armor.ChocoDisguiseModel;
 import net.chococraft.client.models.entities.AdultChocoboModel;
 import net.chococraft.client.models.entities.ChicoboModel;
 import net.chococraft.client.renderer.entities.ChocoboRenderer;
-import net.chococraft.common.inventory.SaddleBagMenu;
 import net.chococraft.registry.ModEntities;
 import net.chococraft.registry.ModMenus;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
