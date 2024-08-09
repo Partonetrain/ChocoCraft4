@@ -12,6 +12,7 @@ import net.chococraft.forge.common.entity.ForgeChocobo;
 import net.chococraft.forge.common.modifier.ModModifiers;
 import net.chococraft.forge.registry.ModDataSerializers;
 import net.chococraft.registry.ModEntities;
+import net.chococraft.registry.ModRegistry;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;

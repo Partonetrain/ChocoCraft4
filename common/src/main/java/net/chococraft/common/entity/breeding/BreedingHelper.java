@@ -68,7 +68,7 @@ public class BreedingHelper {
 				}
 			}
 		} else {
-			Chococraft.LOGGER.error("Breeding Config does not contain " + firstColor.name());
+			Chococraft.LOGGER.error("Breeding Config does not contain {}", firstColor.name());
 		}
 		return ChocoboColor.YELLOW;
 	}

@@ -46,7 +46,7 @@ public class BreedingConfig {
 				breedingMap.putAll(GSON.fromJson(json, Map.class));
 				if (!breedingMap.isEmpty()) {
 					breedingInfoHashmap.putAll(breedingMap);
-					Chococraft.LOGGER.debug("Loaded JSON config file " + INITIAL_FILE.getAbsolutePath());
+					Chococraft.LOGGER.debug("Loaded JSON config file {}", INITIAL_FILE.getAbsolutePath());
 				} else {
 					Chococraft.LOGGER.error("Could not load Breeding Config from {}.", fileName);
 				}
