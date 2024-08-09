@@ -1,5 +1,6 @@
 package net.chococraft.fabric;
 
+import dev.architectury.event.events.common.LifecycleEvent;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
@@ -14,6 +15,7 @@ import net.chococraft.fabric.common.world.FeatureInjector;
 import net.chococraft.fabric.event.MountEvent;
 import net.chococraft.fabric.registry.ModDataSerializers;
 import net.chococraft.registry.ModEntities;
+import net.chococraft.registry.ModRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -56,6 +58,10 @@ public class ChococraftFabric implements ModInitializer {
 				return InteractionResult.FAIL;
 
 			return InteractionResult.PASS;
+		});
+
+		LifecycleEvent.SETUP.register(() -> {
+			ModRegistry.registerCompostables();
 		});
 	}
 }

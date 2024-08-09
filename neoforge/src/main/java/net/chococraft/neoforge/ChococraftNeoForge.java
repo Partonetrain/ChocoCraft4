@@ -10,6 +10,7 @@ import net.chococraft.neoforge.common.entity.NeoForgeChocobo;
 import net.chococraft.neoforge.common.modifier.ModModifiers;
 import net.chococraft.neoforge.registry.ModDataSerializers;
 import net.chococraft.registry.ModEntities;
+import net.chococraft.registry.ModRegistry;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.api.distmarker.Dist;
@@ -48,6 +49,7 @@ public class ChococraftNeoForge {
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
+		ModRegistry.registerCompostables();
 		BreedingConfig.initializeConfig();
 	}
 

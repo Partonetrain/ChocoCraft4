@@ -18,6 +18,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
@@ -78,5 +79,12 @@ public class ModRegistry {
 
 	private static Item.Properties itemBuilder() {
 		return new Item.Properties();
+	}
+
+	public static void registerCompostables() {
+		ComposterBlock.COMPOSTABLES.put(GYSAHL_GREEN_SEEDS.get(), 0.3F);
+		ComposterBlock.COMPOSTABLES.put(GYSAHL_GREEN_ITEM.get(), 0.65F);
+		ComposterBlock.COMPOSTABLES.put(LOVERLY_GYSAHL_GREEN.get(), 0.65F);
+		ComposterBlock.COMPOSTABLES.put(GOLD_GYSAHL.get(), 0.65F);
 	}
 }
