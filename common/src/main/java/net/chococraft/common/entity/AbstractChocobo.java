@@ -153,6 +153,7 @@ public abstract class AbstractChocobo extends TamableAnimal implements HasCustom
 			this.setSaddleType(ItemStack.of(compound.getCompound("wornSaddle")));
 
 		this.setAllowedFlight(compound.getBoolean(NBTKEY_ALLOWED_FLIGHT));
+		this.reassessTameGoals();
 	}
 
 	@Override
@@ -645,10 +646,8 @@ public abstract class AbstractChocobo extends TamableAnimal implements HasCustom
 
 		if (isTame()) {
 			goalSelector.addGoal(4, healInPenGoal);
-			goalSelector.removeGoal(chocoboAvoidPlayerGoal);
 		} else {
 			goalSelector.addGoal(5, chocoboAvoidPlayerGoal);
-			goalSelector.removeGoal(healInPenGoal);
 		}
 	}
 
