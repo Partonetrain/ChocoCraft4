@@ -1,3 +1,2 @@
-### Version 0.11.7
-* Adjust Choco Pen goal
-* Make Gysahl Green drops compostable 
+### Version 0.11.8
+* Re-enable Patchouli support
