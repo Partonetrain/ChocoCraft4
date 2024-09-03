@@ -8,6 +8,7 @@ import net.chococraft.neoforge.datagen.client.ChocoBlockstates;
 import net.chococraft.neoforge.datagen.client.ChocoItemModels;
 import net.chococraft.neoforge.datagen.client.ChocoLanguage;
 import net.chococraft.neoforge.datagen.client.ChocoSoundProvider;
+import net.chococraft.neoforge.datagen.client.patchouli.PatchouliProvider;
 import net.chococraft.neoforge.datagen.data.ChocoLoot;
 import net.chococraft.neoforge.datagen.data.ChocoRecipes;
 import net.minecraft.core.Cloner;
@@ -53,7 +54,7 @@ public class ModDatagenerator {
 			generator.addProvider(event.includeServer(), new ChocoLoot(packOutput, lookupProvider));
 			generator.addProvider(event.includeServer(), new ChocoRecipes(packOutput, lookupProvider));
 
-//			generator.addProvider(event.includeServer(), new PatchouliProvider(packOutput));
+			generator.addProvider(event.includeServer(), new PatchouliProvider(packOutput, lookupProvider));
 
 			generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(
 					packOutput, CompletableFuture.supplyAsync(ModDatagenerator::getProvider), Set.of(Chococraft.MOD_ID)));
