@@ -53,6 +53,6 @@ public class ModFeatures {
 				List.of(
 						CountPlacement.of(UniformInt.of(0, 5)),
 						RarityFilter.onAverageOnceEvery(32),
-						InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()));
+						InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
 	}
 }
