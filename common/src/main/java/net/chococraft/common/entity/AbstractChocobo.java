@@ -466,6 +466,10 @@ public abstract class AbstractChocobo extends TamableAnimal implements HasCustom
 		return stack.is(ModRegistry.LOVERLY_GYSAHL_GREEN.get()) || stack.is(ModRegistry.GOLD_GYSAHL.get()) || stack.is(ModRegistry.GYSAHL_CAKE.get());
 	}
 
+	public boolean isInteractionItem(ItemStack stack) {
+		return isFood(stack) || stack.getItem() instanceof ChocoboSaddleItem || stack.is(ModRegistry.CHOCOBO_WHISTLE.get());
+	}
+
 	@Override
 	public InteractionResult mobInteract(Player player, InteractionHand hand) {
 		ItemStack heldItemStack = player.getItemInHand(hand);
@@ -500,6 +504,19 @@ public abstract class AbstractChocobo extends TamableAnimal implements HasCustom
 			return InteractionResult.PASS;
 		} else {
 			if (this.isTame()) {
+				//Mount the chocobo
+				boolean emptyHand = !ChococraftExpectPlatform.requireEmptyHand() && !isInteractionItem(player.getMainHandItem()) || player.getMainHandItem().isEmpty();
+				if (this.isSaddled() && !this.isVehicle() && emptyHand && !player.isShiftKeyDown() && !this.isBaby()) {
+					player.startRiding(this);
+					return InteractionResult.SUCCESS;
+				}
+
+				//Open chocobo's inventory
+				if (player.isShiftKeyDown() && !this.isBaby() && emptyHand) {
+					this.openCustomInventoryScreen((ServerPlayer) player);
+					return InteractionResult.SUCCESS;
+				}
+				
 				//Switch between the Chocobo following, wandering or staying using the Chocobo Whistle
 				if (heldItemStack.is(ModRegistry.CHOCOBO_WHISTLE.get()) && !this.isBaby()) {
 					if (isOwnedBy(player)) {
@@ -559,19 +576,6 @@ public abstract class AbstractChocobo extends TamableAnimal implements HasCustom
 					if (!player.getAbilities().instabuild) {
 						heldItemStack.shrink(1);
 					}
-					return InteractionResult.SUCCESS;
-				}
-
-				//Mount the chocobo
-				boolean emptyHand = !ChococraftExpectPlatform.requireEmptyHand() || player.getMainHandItem().isEmpty();
-				if (this.isSaddled() && !this.isVehicle() && emptyHand && !player.isShiftKeyDown() && !this.isBaby()) {
-					player.startRiding(this);
-					return InteractionResult.SUCCESS;
-				}
-
-				//Open chocobo's inventory
-				if (player.isShiftKeyDown() && !this.isBaby() && emptyHand) {
-					this.openCustomInventoryScreen((ServerPlayer) player);
 					return InteractionResult.SUCCESS;
 				}
 			} else {
