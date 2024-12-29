@@ -376,7 +376,8 @@ public abstract class AbstractChocobo extends TamableAnimal implements HasCustom
 	public boolean canMate(Animal parent) {
 		if (parent == this || !(parent instanceof AbstractChocobo otherChocobo)) return false;
 		if (!this.isInLove() || !parent.isInLove()) return false;
-		return otherChocobo.isMale() != this.isMale();
+		if (ChococraftExpectPlatform.genderless()) return otherChocobo.isMale() != this.isMale();
+		else return true;
 	}
 
 	public void dropFeather() {
@@ -499,16 +500,6 @@ public abstract class AbstractChocobo extends TamableAnimal implements HasCustom
 			return InteractionResult.PASS;
 		} else {
 			if (this.isTame()) {
-				if (this.isSaddled() && !this.isVehicle() && player.getMainHandItem().isEmpty() && !player.isShiftKeyDown() && !this.isBaby()) {
-					player.startRiding(this);
-					return InteractionResult.SUCCESS;
-				}
-
-				if (player.isShiftKeyDown() && !this.isBaby() && player.getMainHandItem().isEmpty()) {
-					this.openCustomInventoryScreen((ServerPlayer) player);
-					return InteractionResult.SUCCESS;
-				}
-
 				//Switch between the Chocobo following, wandering or staying using the Chocobo Whistle
 				if (heldItemStack.is(ModRegistry.CHOCOBO_WHISTLE.get()) && !this.isBaby()) {
 					if (isOwnedBy(player)) {
@@ -568,6 +559,19 @@ public abstract class AbstractChocobo extends TamableAnimal implements HasCustom
 					if (!player.getAbilities().instabuild) {
 						heldItemStack.shrink(1);
 					}
+					return InteractionResult.SUCCESS;
+				}
+
+				//Mount the chocobo
+				boolean emptyHand = !ChococraftExpectPlatform.requireEmptyHand() || player.getMainHandItem().isEmpty();
+				if (this.isSaddled() && !this.isVehicle() && emptyHand && !player.isShiftKeyDown() && !this.isBaby()) {
+					player.startRiding(this);
+					return InteractionResult.SUCCESS;
+				}
+
+				//Open chocobo's inventory
+				if (player.isShiftKeyDown() && !this.isBaby() && emptyHand) {
+					this.openCustomInventoryScreen((ServerPlayer) player);
 					return InteractionResult.SUCCESS;
 				}
 			} else {
