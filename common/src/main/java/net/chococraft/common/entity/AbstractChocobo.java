@@ -516,7 +516,7 @@ public abstract class AbstractChocobo extends TamableAnimal implements HasCustom
 					this.openCustomInventoryScreen((ServerPlayer) player);
 					return InteractionResult.SUCCESS;
 				}
-				
+
 				//Switch between the Chocobo following, wandering or staying using the Chocobo Whistle
 				if (heldItemStack.is(ModRegistry.CHOCOBO_WHISTLE.get()) && !this.isBaby()) {
 					if (isOwnedBy(player)) {
